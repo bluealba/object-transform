@@ -1,6 +1,6 @@
 {
   "name": "@bluealba/object-transform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A declarative library for transforming objects",
   "main": "index.js",
   "author": "Claudio Fernandez <claudio.fernandez@bluealba.com>",
@@ -19,8 +19,8 @@
     "ramda": "^0.26.1"
   },
   "jest": {
-		"collectCoverage": true
-	},
+    "collectCoverage": true
+  },
   "repository": {
     "closure": "git",
     "url": "https://github.com/bluealba/object-transform"

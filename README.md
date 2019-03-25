@@ -46,8 +46,8 @@ const input = {
 };
 
 const output = transform([
-	{ type: "remap", path: "collection", toPath: "books" },
-	{ type: "remap", path: "books.[].code", toPath: "books.$1.codes.isbn" },
+	{ type: "rename", path: "collection", toPath: "books" },
+	{ type: "rename", path: "books.[].code", toPath: "books.$1.codes.isbn" },
 	{ type: "exclude", path: "books.[].rating" },
 ], input);
 ```
@@ -91,18 +91,18 @@ In the example above:
 * `collection.[].name` - will match only the names of the books.
 * `collection.[].author.[].name` - will match only the author names (`*.author.[].name` would work as well)
 
-Even though we plan to expand this currently only two types of transformations are supported
+Even though we plan to expand this currently only three basic types of transformations are supported
 
 ### Exclude transformation
-Formerly known as `remove`. The simplest transformation. It is configured only with a `path`. Any given node whose path matches this rule will be excluded from the final output. Its children won't be included as well, unless a `remap` transformation alters that behavior.
+Formerly known as `remove`. The simplest transformation. It is configured only with a `path`. Any given node whose path matches this rule will be excluded from the final output. Its children won't be included as well, unless a `rename` transformation alters that behavior.
 
 Example:
 ```
 { type: "exclude", path: "books.[].rating" }
 ```
 
-### Remap transformation
-Formerly known as `rename`. The remap takes a `path` and new path (`toPath`). It will simple "move" any node that matches to the newer destination. 
+### Rename transformation
+The rename takes a `path` and new path (`toPath`). It will simple "move" any node that matches to the newer destination. 
 
 Captured group placeholders (`$1`, `$2`...) can be used to match the values of the `path` wildcards (`[]` and `*`)
 
@@ -111,6 +111,20 @@ In the example above:
 * `name` -> `collectionName` will rename the root's object `name` property to `collectionName`
 * `collection.[].name` -> `collection.$1.bookName` will rename every book's `name` property to `bookName`. Notice the `$1` is a placeholder for whatever value the wildcard `[]` matches with. 
 * `*.name` -> `$1.identifier` will rename both book's `name` property and author's `name` property to `identifier`. Here `$1` is a placeholder for whatever the wildcard `*` matches (which might be very different subpaths!)
+
+Example:
+```
+{ type: "rename", path: "books.[].author", toPath: "books.$1.authors" }
+```
+
+### Map transformation
+The map doesn't affect the matched node path but its value. It's configured with a transformation function `fn` that
+receives both the value and the full path and returns the new value. 
+
+```
+{ type: "map", path: "books.[].author", fn: (value, path) => value.toUppercase() }
+```
+
 
 # Known limitations
 Currently we don't support cicles. We are aiming this to perform transformation in JSON-like tree structures. We might

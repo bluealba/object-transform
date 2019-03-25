@@ -16,15 +16,15 @@ function expressionLens(expression) {
 }
 
 /**
- * A rule determines how a value associated to a certain path of the
+ * A transformation determines how a value associated to a certain path of the
  * `original object` will be treated. It does that by replacing the
  * original setter object that will be used to set the value into
  * such path of the `target object` by a different implementation.
  *
- * Every rules is associated to a matcher which determines if a given
- * path need to be intercepted by this rule or not.
+ * Every transformation is associated to a matcher which determines if a given
+ * path need to be intercepted by this transformation or not.
  */
-class Rule {
+class Transformation {
 	constructor({ path }) {
 		this.matcher = expressionLens(path);
 	}
@@ -39,16 +39,27 @@ class Rule {
 /**
  * If applies replaces the setter for a dummy setter
  */
-class ExcludeRule extends Rule {
+class ExcludeTransformation extends Transformation {
 	apply(setter) {
 		return createDummySetter(setter.propertyPath);
+	}
+}
+
+class MapTransformation extends Transformation {
+	constructor({ path, fn }) {
+		super({ path });
+		this.fn = fn;
+	}
+
+	apply(setter) {
+		return setter.intercept(this.fn)
 	}
 }
 
 /**
  * If applies replaces the setter for a dummy setter
  */
-class RemapRule extends Rule {
+class RenameTransformation extends Transformation {
 	constructor({ path, toPath }) {
 		super({ path });
 		this.toPath = toPath;
@@ -63,6 +74,7 @@ class RemapRule extends Rule {
 }
 
 module.exports = {
-	ExcludeRule,
-	RemapRule
+	ExcludeTransformation,
+	RenameTransformation,
+	MapTransformation
 }

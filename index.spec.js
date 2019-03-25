@@ -15,7 +15,7 @@ describe("object-transform", () => {
 
 	describe("exclusion", () => {
 
-		it("exclusion rule should prevent simple path from be included in result", () => {
+		it("exclusion transformation should prevent simple path from be included in result", () => {
 			const result = transform([
 				{ path: "age", type: "remove" }
 			])(bart);
@@ -30,7 +30,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("exclusion rule can remove a complex object", () => {
+		it("exclusion transformation can remove a complex object", () => {
 			const result = transform([
 				{ path: "address", type: "remove" },
 			])(bart);
@@ -42,7 +42,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("exclusion rule can remove a nested property", () => {
+		it("exclusion transformation can remove a nested property", () => {
 			const result = transform([
 				{ path: "address.city", type: "remove" },
 			])(bart);
@@ -57,7 +57,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("several exclusion rules should work independently", () => {
+		it("several exclusion transformations should work independently", () => {
 			const result = transform([
 				{ path: "age", type: "remove" },
 				{ path: "address", type: "remove" },
@@ -69,7 +69,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("non-matching exclusion rule should not change anything", () => {
+		it("non-matching exclusion transformation should not change anything", () => {
 			const result = transform([
 				{ path: "somethingelse", type: "remove" },
 			])(bart);
@@ -89,7 +89,7 @@ describe("object-transform", () => {
 
 	describe("rename", () => {
 
-		it("rename rule should rename a simple property", () => {
+		it("rename transformation should rename a simple property", () => {
 			const result = transform([
 				{ path: "lastName", type: "rename", toPath: "surname" }
 			])(bart);
@@ -105,7 +105,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("rename rule can rename a complex object", () => {
+		it("rename transformation can rename a complex object", () => {
 			const result = transform([
 				{ path: "address", type: "rename", toPath: "location" }
 			])(bart);
@@ -121,7 +121,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("rename rule can rename a nested property", () => {
+		it("rename transformation can rename a nested property", () => {
 			const result = transform([
 				{ path: "address.line1", type: "rename", toPath: "address.line" }
 			])(bart);
@@ -137,7 +137,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("multiple rename rules are applied in order", () => {
+		it("multiple rename transformations are applied in order", () => {
 			const result = transform([
 				{ path: "address", type: "rename", toPath: "location" },
 				{ path: "location.line1", type: "rename", toPath: "location.line" }
@@ -154,7 +154,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("rename rule can relocate a property into a newer object", () => {
+		it("rename transformation can relocate a property into a newer object", () => {
 			const result = transform([
 				{ path: "age", type: "rename", toPath: "data.age" },
 			])(bart);
@@ -172,7 +172,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("rename rule can relocate a property into an existent object", () => {
+		it("rename transformation can relocate a property into an existent object", () => {
 			const result = transform([
 				{ path: "age", type: "rename", toPath: "address.age" },
 			])(bart);
@@ -188,7 +188,7 @@ describe("object-transform", () => {
 			})
 		});
 
-		it("rename rule can work with wildcards", () => {
+		it("rename transformation can work with wildcards", () => {
 			const result = transform([
 				{ path: "*.line1", type: "rename", toPath: "$1.line" },
 			])(bart);
@@ -205,7 +205,43 @@ describe("object-transform", () => {
 		});
 	});
 
-	it("rules can be used to transform items inside an array", () => {
+	describe("map", () => {
+
+		it("map transformation should map the value", () => {
+			const result = transform([
+				{ path: "firstName", type: "map", fn: value => value + " J."  }
+			])(bart);
+
+			expect(result).toEqual({
+				firstName: "Bart J.",
+				lastName: "Simpson",
+				age: 10,
+				address: {
+					line1: "742 Evergreen Terrace",
+					city: "Springfield"
+				}
+			})
+		});
+
+		it("map and rename transformation can be used together", () => {
+			const result = transform([
+				{ path: "firstName", type: "rename", toPath: "name"  },
+				{ path: "name", type: "map", fn: value => value + " J."  }
+			])(bart);
+
+			expect(result).toEqual({
+				name: "Bart J.",
+				lastName: "Simpson",
+				age: 10,
+				address: {
+					line1: "742 Evergreen Terrace",
+					city: "Springfield"
+				}
+			})
+		});
+	});
+
+	it("transformations can be used to transform items inside an array", () => {
 		const result = transform([
 			{ path: "[].address", type: "remove" },
 			{ path: "*.age", type: "remove" },

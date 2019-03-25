@@ -2,19 +2,24 @@
 
 const { curry } = require("ramda");
 const { createSetter } = require("./setter");
-const { ExcludeRule, RemapRule } = require("./rules");
+const { ExcludeTransformation, RenameTransformation, MapTransformation } = require("./rules");
+
+const TRANSFORMATIONS = {
+	"rename": RenameTransformation,
+	"remove": ExcludeTransformation,
+	"exclude": ExcludeTransformation,
+	"map": MapTransformation,
+}
 
 /**
- * Parse rules into an internal format
+ * Parse transformations into an internal format
  */
-const parseRules = rules => rules.map(definition => {
-	if (definition.type === "remove" || definition.type === "exclude") {
-		return new ExcludeRule(definition);
+const parseTransformation = txs => txs.map(definition => {
+	const transformationClass = TRANSFORMATIONS[definition.type];
+	if (!transformationClass) {
+		throw new Error(`Unrecognized transformation type ${definition.type}`);
 	}
-	if (definition.type === "rename" || definition.type === "remap") {
-		return new RemapRule(definition);
-	}
-	throw new Error(`Unrecognized rule type ${definition.type}`);
+	return new transformationClass(definition);
 });
 
 /**
@@ -52,8 +57,8 @@ const walk = (rules, value, result, setter) => {
 }
 
 
-module.exports = curry((rules, value) => walk(
-	parseRules(rules),
+module.exports = curry((txs, value) => walk(
+	parseTransformation(txs),
 	value,
 	Array.isArray(value) ? [] : {},
 	createSetter([])
