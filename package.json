@@ -1,0 +1,28 @@
+{
+  "name": "@bluealba/object-transform",
+  "version": "1.0.0",
+  "description": "A configurable object tranformer",
+  "main": "index.js",
+  "author": "Claudio Fernandez <claudio.fernandez@bluealba.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "eslint '.' && jest",
+    "lint": "eslint '.'",
+    "coverage": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.3",
+    "eslint": "^5.15.3",
+    "jest": "^24.5.0"
+  },
+  "dependencies": {
+    "ramda": "^0.26.1"
+  },
+  "jest": {
+		"collectCoverage": true
+	},
+  "repository": {
+    "closure": "git",
+    "url": "https://github.com/bluealba/object-transform"
+  }
+}
