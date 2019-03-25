@@ -6,6 +6,7 @@
 ![David](https://img.shields.io/david/bluealba/object-transform.svg)
 [![Coverage Status](https://coveralls.io/repos/github/bluealba/object-transform/badge.svg?branch=master)](https://coveralls.io/github/bluealba/object-transform?branch=master)
 
+
 ## Overview
 The main purpose of this module is to perform a series of declarative transformations over an input object returning a modified output object (this library do not have side effect over its input).
 
