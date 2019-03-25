@@ -1,10 +1,10 @@
 # @bluealba/object-transform
 
-[![Build Status](https://travis-ci.org/bluealba/object-transform.svg?branch=master)](https://travis-ci.org/bluealba/rules-js)
-[![npm](https://img.shields.io/npm/v/bluealba/object-transform.svg)](https://npmjs.org/package/rules-js)
-[![npm](https://img.shields.io/npm/dt/bluealba/object-transform.svg)](https://npmjs.org/package/rules-js)
-![David](https://img.shields.io/david/bluealba/rules-js.svg)
-[![Coverage Status](https://coveralls.io/repos/github/bluealba/object-transform/badge.svg?branch=master)](https://coveralls.io/github/bluealba/rules-js?branch=master)
+[![Build Status](https://travis-ci.org/bluealba/object-transform.svg?branch=master)](https://travis-ci.org/bluealba/object-transform)
+[![npm](https://img.shields.io/npm/v/bluealba/object-transform.svg)](https://npmjs.org/package/bluealba/object-transform.svg)
+[![npm](https://img.shields.io/npm/dt/bluealba/object-transform.svg)](https://npmjs.org/package/bluealba/object-transform.svg)
+![David](https://img.shields.io/david/bluealba/object-transform.svg)
+[![Coverage Status](https://coveralls.io/repos/github/bluealba/object-transform/badge.svg?branch=master)](https://coveralls.io/github/bluealba/object-transform?branch=master)
 
 ## Overview
 The main purpose of this module is to perform a series of declarative transformations over an input object returning a modified output object (this library do not have side effect over its input).
