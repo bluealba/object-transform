@@ -8,7 +8,7 @@
   "scripts": {
     "test": "eslint '.' && jest",
     "lint": "eslint '.'",
-    "coverage": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
+    "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "devDependencies": {
     "coveralls": "^3.0.3",
