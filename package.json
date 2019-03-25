@@ -1,7 +1,7 @@
 {
   "name": "@bluealba/object-transform",
   "version": "1.0.0",
-  "description": "A configurable object tranformer",
+  "description": "A declarative library for transforming objects",
   "main": "index.js",
   "author": "Claudio Fernandez <claudio.fernandez@bluealba.com>",
   "license": "MIT",

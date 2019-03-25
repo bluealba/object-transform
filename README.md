@@ -1,8 +1,8 @@
 # @bluealba/object-transform
 
 [![Build Status](https://travis-ci.org/bluealba/object-transform.svg?branch=master)](https://travis-ci.org/bluealba/object-transform)
-[![npm](https://img.shields.io/npm/v/bluealba/object-transform.svg)](https://npmjs.org/package/bluealba/object-transform.svg)
-[![npm](https://img.shields.io/npm/dt/bluealba/object-transform.svg)](https://npmjs.org/package/bluealba/object-transform.svg)
+[![npm](https://img.shields.io/npm/v/@bluealba/object-transform.svg)](https://npmjs.org/package/@bluealba/object-transform.svg)
+[![npm](https://img.shields.io/npm/dt/@bluealba/object-transform.svg)](https://npmjs.org/package/@bluealba/object-transform.svg)
 ![David](https://img.shields.io/david/bluealba/object-transform.svg)
 [![Coverage Status](https://coveralls.io/repos/github/bluealba/object-transform/badge.svg?branch=master)](https://coveralls.io/github/bluealba/object-transform?branch=master)
 
