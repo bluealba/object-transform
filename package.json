@@ -11,9 +11,9 @@
     "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "devDependencies": {
-    "coveralls": "^3.0.3",
-    "eslint": "^5.15.3",
-    "jest": "^24.5.0"
+    "coveralls": "^3.0.9",
+    "eslint": "^6.7.2",
+    "jest": "^24.9.0"
   },
   "dependencies": {
     "ramda": "^0.26.1"
