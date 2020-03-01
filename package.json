@@ -16,7 +16,7 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
-    "ramda": "^0.26.1"
+    "ramda": "^0.27.0"
   },
   "jest": {
     "collectCoverage": true
