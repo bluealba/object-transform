@@ -13,7 +13,7 @@
   "devDependencies": {
     "coveralls": "^3.0.9",
     "eslint": "^6.7.2",
-    "jest": "^24.9.0"
+    "jest": "^27.0.6"
   },
   "dependencies": {
     "ramda": "^0.26.1"
